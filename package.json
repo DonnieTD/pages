@@ -2,7 +2,7 @@
   "name": "actually",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://donnietd.github.io/pages/",
+  "homepage": "/pages",
   "dependencies": {
     "@styled-icons/bootstrap": "^10.33.0",
     "@testing-library/jest-dom": "^5.11.4",
