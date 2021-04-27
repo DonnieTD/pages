@@ -1,15 +1,26 @@
-name: Build and Deploy to GitHub Pages
+name: Deployment
 on:
   push:
-    branches: [master]
+    branches:
+      - master
 jobs:
-  build:
-    name: build-and-deploy
+  deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      - uses: ./.github/actions/publish-gh-pages
-        env:
-          PUSH_TOKEN: ${{ secrets.TOKEN }}
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Packages
+      run: npm install
+    - name: Build page
+      run: npm run build
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.TOKEN }}
+        publish_dir: ./build
