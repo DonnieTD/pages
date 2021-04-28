@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
-import GithubIcon from "mdi-react/GithubIcon";
+import { useState, useContext } from "react";
 import { Context } from "../context";
 import logosrc from "./logo.png";
-import { Wrapper } from "./styles";
+import { Wrapper, LoginContainer } from "./styles";
 import { useGetCodeFromUrl } from "../hooks/useGetCodeFromUrl";
 import { Redirect } from "react-router";
+import { LoginButton } from "./LoginButton";
+import { OauthUrl } from "./OauthUrl";
 
 const UnauthenticatedApp = () => {
   const { state, dispatch } = useContext(Context);
@@ -15,28 +16,18 @@ const UnauthenticatedApp = () => {
 
   return (
     <Wrapper>
-      <section className="container">
+      <section>
         <div>
           <img alt="logo" src={logosrc} />
           <span>{data.errorMessage}</span>
-          <a
-            href={`https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_OAUTH_REDIRECT_URI_DEV}`}
+          <LoginContainer
+            href={OauthUrl}
             onClick={() => {
               setData({ ...data, errorMessage: "" });
             }}
-            className="login-container"
           >
-            {data.isLoading ? (
-              <div className="loader-container">
-                <div className="loader"></div>
-              </div>
-            ) : (
-              <span className="login-link">
-                <GithubIcon />
-                <span>Login</span>
-              </span>
-            )}
-          </a>
+            <LoginButton loading={data.isLoading} />
+          </LoginContainer>
         </div>
       </section>
     </Wrapper>

@@ -11,9 +11,7 @@ import axios from "axios";
 const queryClient = new QueryClient();
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development"
-    ? "https://cors-anywhere.herokuapp.com/https://github.com/"
-    : "https://github.com/";
+  "https://cors-anywhere.herokuapp.com/https://github.com/";
 
 ReactDOM.render(
   <React.StrictMode>

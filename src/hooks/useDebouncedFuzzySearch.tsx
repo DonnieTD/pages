@@ -1,11 +1,7 @@
 import { matchSorter } from "match-sorter";
 import { useDebounce } from "./useDebounce";
 
-const baseSearch = (
-  rows: any[], // array of data [{a: "a", b: "b"}, {a: "c", b: "d"}]
-  //   keys: string[], // keys to search ["a", "b"]
-  filterValue: string // potentially multi-word search string "two words"
-) => {
+const baseSearch = (rows: any[], filterValue: string) => {
   if (!filterValue || !filterValue.length) {
     return rows;
   }
@@ -25,7 +21,6 @@ export const useDebouncedFuzzySearch = (
   value: any,
   delay: number,
   rows: any[]
-  //   keys: string[]
 ) => {
   const debouncedValue = useDebounce(value, delay);
 
